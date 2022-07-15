@@ -1,8 +1,9 @@
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <div className="App">
-      <h1 className='text-white'>Nextflix</h1>
+      <Navbar />
     </div>
   );
 }
