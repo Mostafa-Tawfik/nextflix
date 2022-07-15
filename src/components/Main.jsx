@@ -18,6 +18,11 @@ function Main() {
   
   console.log(movies);
   console.log(movie);
+
+  // truncate string
+  function truncateString(str, max) {
+    return str?.length > max ? str.slice(0, max) + '...' : str;
+  } 
   
 
   return (
@@ -41,6 +46,10 @@ function Main() {
               Watch
             </button>
           </div>
+
+          <p className='text-gray-400 text-sm'>Released: {movie?.release_date}</p>
+
+          <p className='w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-gray-200'>{truncateString(movie?.overview, 200)}</p>
 
         </div>
 
