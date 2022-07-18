@@ -7,11 +7,11 @@ function Home() {
   return (
     <div>
       <Main />
-      <Category title='Up Coming' fetchURL={apiRequests.requestUpcoming}/>
-      <Category title='Popular' fetchURL={apiRequests.requestPopular}/>
-      <Category title='Trending' fetchURL={apiRequests.requestTrending}/>
-      <Category title='Top Rated' fetchURL={apiRequests.requestTopRated}/>
-      <Category title='Horror' fetchURL={apiRequests.requestHorror}/>
+      <Category id='1' title='Popular' fetchURL={apiRequests.requestPopular}/>
+      <Category id='2' title='Up Coming' fetchURL={apiRequests.requestUpcoming}/>
+      <Category id='3' title='Trending' fetchURL={apiRequests.requestTrending}/>
+      <Category id='4' title='Top Rated' fetchURL={apiRequests.requestTopRated}/>
+      <Category id='5' title='Horror' fetchURL={apiRequests.requestHorror}/>
     </div>
   )
 }
