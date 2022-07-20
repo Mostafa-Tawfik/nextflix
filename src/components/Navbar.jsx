@@ -11,7 +11,7 @@ function Navbar() {
 
       <div>
 
-        <Link to='/signin'>
+        <Link to='/login'>
           <button className='text-white pr-4'>Sign In</button>
         </Link>
 
