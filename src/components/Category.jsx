@@ -12,7 +12,7 @@ function Category({title, fetchURL, id}) {
 
   useEffect(()=>{
     axios.get(fetchURL)
-    .then(res => setMovies(res.data.results))
+    .then(res => setMovies(res.data.results.slice(0, 10)))
   },[fetchURL])
 
   // manual scroll left function
