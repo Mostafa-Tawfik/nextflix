@@ -16,8 +16,8 @@ function Main() {
     .then(res => setMovies(res.data.results))
   },[])
   
-  console.log(movies);
-  console.log(movie);
+  // console.log(movies);
+  // console.log(movie);
 
   // truncate string
   function truncateString(str, max) {

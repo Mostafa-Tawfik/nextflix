@@ -10,7 +10,7 @@ function Login() {
   const [password, setPassword] = useState('')
   // const [errorMsg, setErrorMsg] = useState('')
 
-  const {user, login} = useContext(AuthContext)
+  const {login} = useContext(AuthContext)
   const navigate = useNavigate()
 
   const handleSubmit = async(e) => {
@@ -20,9 +20,7 @@ function Login() {
 
     try {
       await login(email, password)
-      .then(
-        navigate('/')
-      )
+      navigate('/')
     } catch(error) {
       console.log(error.message);
       // setErrorMsg(error.message)

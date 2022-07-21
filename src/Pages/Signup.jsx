@@ -8,21 +8,23 @@ function Signup() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  // const [errorMsg, setErrorMsg] = useState('')
 
-  const {user, signUp} = useContext(AuthContext)
+  const {signUp} = useContext(AuthContext)
   const navigate = useNavigate()
 
   const handleSubmit = async(e) => {
 
     e.preventDefault()
+    // setErrorMsg('')
 
-    await signUp(email, password)
-    .then(
+    try {
+      await signUp(email, password)
       navigate('/')
-    )
-    .catch((err)=>{
-      console.log(err);
-    })
+    } catch(error) {
+      console.log(error.message);
+      // setErrorMsg(error.message)
+    }
   }
 
   return (
