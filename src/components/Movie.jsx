@@ -19,7 +19,7 @@ function Movie({movie}) {
       setLike(!like)
       setFav(true)
       await updateDoc(movieID, {
-        savedMovies: arrayUnion({
+        favMovies: arrayUnion({
           id: movie.id,
           title: movie.title,
           img: movie.backdrop_path
