@@ -3,7 +3,7 @@ import FavoriteMovies from '../components/FavoriteMovies'
 
 function Account() {
   return (
-    <>
+    <div>
       <div className='w-full text-white'>
 
         {/* background */}
@@ -21,7 +21,7 @@ function Account() {
 
       </div>
       <FavoriteMovies />
-    </>
+    </div>
   )
 }
 

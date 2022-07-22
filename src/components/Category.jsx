@@ -26,7 +26,7 @@ function Category({title, fetchURL, id}) {
   }
 
   return (
-    <>
+    <div>
       <h2 className='text-white font-bold p-4 md:text-xl'>{title}</h2>
 
       <div className='relative flex items-center group'>
@@ -43,7 +43,7 @@ function Category({title, fetchURL, id}) {
         <MdChevronRight size={40} className='right-0 bg-white rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block' onClick={scrollRight}/>
 
       </div>
-    </>
+    </div>
   )
 }
 

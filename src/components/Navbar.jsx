@@ -17,7 +17,7 @@ function Navbar() {
     }
   }
 
-  console.log(user?.email);
+  // console.log(user?.email);
 
   return (
     <div className='flex items-center justify-between p-4 z-[100] absolute w-full'>

@@ -8,7 +8,7 @@ import Signup from './Pages/Signup';
 
 function App() {
   return (
-    <>
+    <div>
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />}/>
@@ -21,7 +21,7 @@ function App() {
           }
         />
       </Routes>
-    </>
+    </div>
   );
 }
 

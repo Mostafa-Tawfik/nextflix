@@ -10,7 +10,7 @@ function FavoriteMovies() {
 
   const [movies, setMovies] = useState([])
 
-  console.log(movies);
+  // console.log(movies);
 
   useEffect(()=>{
     onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
@@ -20,7 +20,7 @@ function FavoriteMovies() {
 
   const movieRef = doc(db, 'users', `${user?.email}`)
 
-  async function deleteMovie(deleteID) {
+  const deleteMovie= async(deleteID) => {
     try {
       const result = movies.filter(movie => movie.id !== deleteID)
       await updateDoc(movieRef, {
