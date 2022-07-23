@@ -11,7 +11,6 @@ function Home() {
       <Category id='2' title='Up Coming' fetchURL={apiRequests.requestUpcoming}/>
       <Category id='3' title='Trending' fetchURL={apiRequests.requestTrending}/>
       <Category id='4' title='Top Rated' fetchURL={apiRequests.requestTopRated}/>
-      <Category id='5' title='Horror' fetchURL={apiRequests.requestHorror}/>
     </div>
   )
 }

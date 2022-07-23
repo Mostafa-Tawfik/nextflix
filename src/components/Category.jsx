@@ -1,17 +1,18 @@
 import React from 'react'
-import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import Movie from './Movie'
+import useApi from '../api/useApi'
 
 function Category({title, fetchURL, id}) {
 
-  const [movies, setMovies] = useState([])
+  const {data, sendReq} = useApi({url:fetchURL})
+  const movies = data.results?.slice(0, 10)
 
   useEffect(()=>{
-    axios.get(fetchURL)
-    .then(res => setMovies(res.data.results.slice(0, 10)))
-  },[fetchURL])
+    sendReq()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
 
   // manual scroll left function
   function scrollLeft() {
@@ -34,7 +35,7 @@ function Category({title, fetchURL, id}) {
         <MdChevronLeft size={40} className='left-0 bg-white rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block' onClick={scrollLeft}/>
 
         <div id={'slider' + id} className='w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative'>
-          {movies.map(movie => (
+          {movies?.map(movie => (
             <Movie key={movie?.id} movie={movie}/>
           ))}
 
