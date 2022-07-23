@@ -1,8 +1,7 @@
-import React from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import apiRequests from '../apiRequests'
+import { Link } from 'react-router-dom'
 
 function Main() {
   // set a state to hold the movies
@@ -39,12 +38,14 @@ function Main() {
           <h1 className='text-3xl md:text-5xl font-bold'>{movie?.title}</h1>
 
           <div className='my-4'>
-            <button className='bg-white text-black px-5 py-2 border border-gray-300'>
-              Play
-            </button>
-            <button className='px-5 py-2 ml-4 border border-gray-300'>
+            <Link to={`/movie/${movie?.id}`}>
+              <button className='bg-white text-black px-5 py-2 border border-gray-300'>
+                More info
+              </button>
+            </Link>
+            {/* <button className='px-5 py-2 ml-4 border border-gray-300'>
               Watch
-            </button>
+            </button> */}
           </div>
 
           <p className='text-gray-400 text-sm'>Released: {movie?.release_date}</p>

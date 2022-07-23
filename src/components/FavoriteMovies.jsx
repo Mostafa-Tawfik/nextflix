@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import { db } from '../firebase'
 import { updateDoc, doc, onSnapshot } from 'firebase/firestore'
@@ -43,8 +44,7 @@ function FavoriteMovies() {
           className='w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative'
         >
           {movies.map((movie) => (
-            <div
-              key={movie.id}
+            <Link to={`/movie/${movie?.id}`} key={movie.id}
               className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'
             >
               <img
@@ -58,7 +58,7 @@ function FavoriteMovies() {
                 </p>
                 <p onClick={()=> deleteMovie(movie.id)} className='absolute text-gray-300 top-4 right-4'><AiOutlineClose /></p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
