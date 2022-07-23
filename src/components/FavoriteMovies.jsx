@@ -44,21 +44,28 @@ function FavoriteMovies() {
           className='w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative'
         >
           {movies.map((movie) => (
-            <Link to={`/movie/${movie?.id}`} key={movie.id}
-              className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'
+            <section key={movie.id}
+              className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block relative p-2'
             >
-              <img
-                className='w-full h-auto block'
-                src={`https://image.tmdb.org/t/p/w500/${movie?.img}`}
-                alt={movie?.title}
-              />
-              <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white'>
-                <p className='white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>
-                  {movie?.title}
-                </p>
-                <p onClick={()=> deleteMovie(movie.id)} className='absolute text-gray-300 top-4 right-4'><AiOutlineClose /></p>
-              </div>
-            </Link>
+              <Link to={`/movie/${movie?.id}`}>
+                <img
+                  className='w-full h-auto block'
+                  src={`https://image.tmdb.org/t/p/w500/${movie?.img}`}
+                  alt={movie?.title}
+                />
+                <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white'>
+                  <p className='whitespace-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>
+                    {movie?.title}
+                  </p>
+                </div>
+              </Link>
+
+              <button 
+                onClick={()=> deleteMovie(movie.id)} 
+                className='absolute text-gray-300 top-4 right-4 hover:scale-[1.5] hover:duration-300 ease duration-300'>
+                  <AiOutlineClose />
+              </button>
+            </section>
           ))}
         </div>
       </div>

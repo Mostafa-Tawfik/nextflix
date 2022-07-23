@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect } from 'react';
 import {useParams} from 'react-router-dom'
 import useApi from '../api/useApi'
+import {FaImdb} from 'react-icons/fa'
 
 function MovieID() {
 
@@ -28,7 +29,6 @@ function MovieID() {
   }
   
   console.log(movie);
-  console.log(timeConverter(119));
 
   return (
     <main className='relative w-full h-[510px] pt-[72px]'>
@@ -51,7 +51,7 @@ function MovieID() {
               {movie?.title}
             </h2>
 
-            <p className='text-xs md:text-sm text-gray-400'>
+            <p className='text-xs md:text-sm text-gray-400 pt-2'>
               {movie?.release_date} &bull; {genres} &bull; {timeConverter(movie?.runtime)}
             </p>
           </article>
@@ -62,6 +62,20 @@ function MovieID() {
             <h3 className='text-lg pb-2'>Overview</h3>
             <p className='lg:max-w-[70%] xl:max-w-[50%] text-gray-300'>{movie?.overview}</p>
           </article>
+
+          <div className='flex gap-4'>
+            <a href={movie?.homepage} target={'_blank'} rel={'noreferrer'}>
+              <img 
+                className='w-[60px] h-[60px] object-cover cursor-pointer rounded'
+                src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} alt="/" 
+                />
+            </a>
+
+            <a href={`https://www.imdb.com/title/${movie?.imdb_id}/`} target={'_blank'} rel={'noreferrer'}>
+              <FaImdb size={60} color={'yellow'}/>
+            </a>
+          </div>
+
 
         </div>
 

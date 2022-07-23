@@ -29,25 +29,31 @@ function Movie({movie}) {
   // console.log(fav, movie.title);
 
   return (
-    <Link to={`/movie/${movie?.id}`}>
+    <>
       <div className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'>
 
-        <img className='w-full h-auto block' src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} alt="movie"/>
+        <Link to={`/movie/${movie?.id}`}>
+          <img className='w-full h-auto block' src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} alt="movie"/>
+        </Link>
+
 
         <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white'>
 
+        <Link to={`/movie/${movie?.id}`}>
           <p className='whitespace-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>
             {movie?.title}
           </p>
+        </Link>
 
-          <p className='absolute top-4 left-4 text-gray-300'
+          <button 
+            className='absolute top-4 left-4 text-gray-300 hover:scale-[1.5] hover:duration-300 ease duration-300'
             onClick={saveMovie}>
             {like ? <FaHeart /> : <FaRegHeart />}
-          </p>
+          </button>
 
         </div>
       </div>
-    </Link>
+    </>
   )
 }
 
