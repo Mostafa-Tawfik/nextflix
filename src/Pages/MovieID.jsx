@@ -7,34 +7,79 @@ function MovieID() {
 
   const params = useParams()
 
-  const {data: movie, sendReq} = useApi({url: `https://api.themoviedb.org/3/movie/${params.movieID}?api_key=${process.env.REACT_APP_TMDBkey}&language=en-US&page=1`})
+  const {data: movie, sendReq: reqData} = useApi({url: `https://api.themoviedb.org/3/movie/${params.movieID}?api_key=${process.env.REACT_APP_TMDBkey}&language=en-US&page=1`})
+
+  const {data: videos, sendReq: reqVidos} = useApi({url: `https://api.themoviedb.org/3/movie/${params.movieID}/videos?api_key=${process.env.REACT_APP_TMDBkey}&language=en-US&page=1`})
 
   useEffect(()=>{
-    sendReq()
+    reqData()
+    reqVidos()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
+
+  const trailer = videos.results && videos.results.filter(vid=> vid.name.includes('Official Trailer' || 'trailer'))
+
+  const genres = movie.genres?.map(gen => gen.name).join(' , ')
+
+  function timeConverter(num) {
+    let hours = Math.floor(num / 60)
+    let minutes = num % 60
+    return hours + ':' + minutes + 'm'
+  }
   
   console.log(movie);
+  console.log(timeConverter(119));
 
   return (
-    <div className='relative w-full h-[510px] pt-[72px]'>
+    <main className='relative w-full h-[510px] pt-[72px]'>
 
       <div className='relative top-0 left-0'>
-        <img className='absolute w-full h-[510px] object-cover opacity-20' src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} alt="movie"/>
+        <img className='absolute w-full h-[510px] object-cover opacity-10' src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} alt="movie"/>
       </div>
 
-      <div className='w-full h-[510px] flex flex-col items-center justify-center gap-4 text-white p-4 md:flex-row'>
+      <section className='w-full h-auto flex flex-col items-center justify-center gap-4 text-white p-4 md:flex-row md:h-[510px]'>
 
         <img 
           className='w-[300px] h-[450px]'
-          src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`} alt='/'/>
+          src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`} alt='/'
+        />
 
-        <p className='text-base md:text-3xl font-bold text-center'>
-          {movie?.title}
-        </p>
+        <div className='z-20 flex flex-col gap-4'>
 
-      </div>
-    </div>
+          <article>
+            <h2 className='text-3xl md:text-5xl font-bold'>
+              {movie?.title}
+            </h2>
+
+            <p className='text-xs md:text-sm text-gray-400'>
+              {movie?.release_date} &bull; {genres} &bull; {timeConverter(movie?.runtime)}
+            </p>
+          </article>
+
+          <p className='italic text-gray-500'>{movie?.tagline}</p>
+
+          <article className='py-4'>
+            <h3 className='text-lg pb-2'>Overview</h3>
+            <p className='lg:max-w-[70%] xl:max-w-[50%] text-gray-300'>{movie?.overview}</p>
+          </article>
+
+        </div>
+
+      </section>
+
+      <section className='w-full h-auto flex justify-center items-center py-4'>
+
+        {trailer && <iframe 
+          title='videos'
+          width="420" height="315" frameBorder="0"
+          allowFullScreen
+          src={`https://www.youtube.com/embed/${trailer[0]?.key}`}>
+        </iframe>}
+
+      </section>
+
+
+    </main>
   )
 }
 
