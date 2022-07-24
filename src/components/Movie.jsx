@@ -20,7 +20,7 @@ function Movie({movie}) {
         favMovies: arrayUnion({
           id: movie.id,
           title: movie.title,
-          img: movie.backdrop_path
+          img: movie.poster_path
         })
       })
     } else alert('Login to save your favorite movies')
@@ -33,7 +33,7 @@ function Movie({movie}) {
       <div className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'>
 
         <Link to={`/movie/${movie?.id}`}>
-          <img className='w-full h-auto block' src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} alt="movie"/>
+          <img className='w-full h-auto block' src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`} alt="movie"/>
         </Link>
 
 

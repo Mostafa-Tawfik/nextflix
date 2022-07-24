@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import {useParams} from 'react-router-dom'
 import useApi from '../api/useApi'
 import {FaImdb} from 'react-icons/fa'
+import {SiThemoviedatabase} from 'react-icons/si'
 
 function MovieID() {
 
@@ -73,6 +74,10 @@ function MovieID() {
 
             <a href={`https://www.imdb.com/title/${movie?.imdb_id}/`} target={'_blank'} rel={'noreferrer'}>
               <FaImdb size={60} color={'yellow'}/>
+            </a>
+            
+            <a href={`https://www.themoviedb.org/movie/${movie?.id}`} target={'_blank'} rel={'noreferrer'}>
+              <SiThemoviedatabase size={60} color={'green'}/>
             </a>
           </div>
 
