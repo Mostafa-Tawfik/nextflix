@@ -1,5 +1,5 @@
 import React from 'react'
-import apiRequests from '../apiRequests'
+import apiRequests from '../api/apiRequests'
 import Category from '../components/Category'
 import Main from '../components/Main'
 

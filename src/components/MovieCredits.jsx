@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
 import useApi from '../api/useApi'
+import { requestCredits } from '../api/apiRequests'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 
 function MovieCredits({movieID}) {
 
-  const {data, sendReq} = useApi({url: `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${process.env.REACT_APP_TMDBkey}&language=en-US`})
+  const {data, sendReq} = useApi({url: requestCredits(movieID)})
 
-  const cast = data.cast?.slice(0, 10)
+  const cast = data.cast?.filter(cast=>cast.profile_path !== null).slice(0, 10)
 
   useEffect(()=>{
     sendReq()

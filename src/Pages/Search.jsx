@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDebounce } from 'use-debounce'
 import useApi from '../api/useApi'
 import Movie from '../components/Movie'
+import { requestSearch } from '../api/apiRequests'
 
 function Search() {
 
@@ -12,7 +13,7 @@ function Search() {
     setQuery(event.target.value)
   }
 
-  const {data, sendReq} = useApi({url:`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_TMDBkey}&query=${query}&language=en-US&include_adult=true&page=1`})
+  const {data, sendReq} = useApi({url: requestSearch(value)})
 
   const matchedResults = data.results
 
@@ -22,7 +23,7 @@ function Search() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[value])
 
-  console.log(matchedResults);
+  // console.log(matchedResults);
 
   return (
     <main className='w-full min-h-[calc(100vh-130px)] pt-[120px] flex flex-col items-center justify-center'>

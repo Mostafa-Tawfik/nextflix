@@ -1,7 +1,7 @@
-import React from 'react'
-import { useEffect } from 'react';
+import React, { useEffect } from 'react'
 import {useParams} from 'react-router-dom'
 import useApi from '../api/useApi'
+import { requestMovie, requestvideos } from '../api/apiRequests'
 import {FaImdb} from 'react-icons/fa'
 import {SiThemoviedatabase} from 'react-icons/si'
 import MovieCredits from '../components/MovieCredits';
@@ -10,9 +10,9 @@ function MovieID() {
 
   const params = useParams()
 
-  const {data: movie, sendReq: reqData} = useApi({url: `https://api.themoviedb.org/3/movie/${params.movieID}?api_key=${process.env.REACT_APP_TMDBkey}&language=en-US&page=1`})
+  const {data: movie, sendReq: reqData} = useApi({url: requestMovie(params.movieID)})
 
-  const {data: videos, sendReq: reqVidos} = useApi({url: `https://api.themoviedb.org/3/movie/${params.movieID}/videos?api_key=${process.env.REACT_APP_TMDBkey}&language=en-US&page=1`})
+  const {data: videos, sendReq: reqVidos} = useApi({url: requestvideos(params.movieID)})
 
   useEffect(()=>{
     reqData()
@@ -20,6 +20,7 @@ function MovieID() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
+  // filter vidoes and return only trailers
   const trailer = videos.results && videos.results.filter(vid=> vid.name.includes('Official Trailer' || 'trailer'))
 
   const genres = movie.genres?.map(gen => gen.name).join(' , ')

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import apiRequests from '../apiRequests'
+import apiRequests from '../api/apiRequests'
 import { Link } from 'react-router-dom'
 
 function Main() {

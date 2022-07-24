@@ -2,8 +2,9 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import { db } from '../firebase'
-import { updateDoc, doc, onSnapshot } from 'firebase/firestore'
+import { doc, onSnapshot } from 'firebase/firestore'
 import { AiOutlineClose } from 'react-icons/ai'
+import { deleteMovie } from '../helpers/firebaseCrud'
 
 function FavoriteMovies() {
 
@@ -13,24 +14,12 @@ function FavoriteMovies() {
 
   // console.log(movies);
 
+  // render the fav movies from DB
   useEffect(()=>{
     onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
       setMovies(doc.data()?.favMovies)
     })
   },[user?.email])
-
-  const movieRef = doc(db, 'users', `${user?.email}`)
-
-  const deleteMovie= async(deleteID) => {
-    try {
-      const result = movies.filter(movie => movie.id !== deleteID)
-      await updateDoc(movieRef, {
-        favMovies: result
-      })
-    } catch(error) {
-      console.log(error);
-    }
-  }
 
   return (
     <div>
@@ -61,7 +50,7 @@ function FavoriteMovies() {
               </Link>
 
               <button 
-                onClick={()=> deleteMovie(movie.id)} 
+                onClick={()=> deleteMovie(movie.id, movies, user)} 
                 className='absolute text-gray-300 top-4 right-4 hover:scale-[1.5] hover:duration-300 ease duration-300'>
                   <AiOutlineClose />
               </button>

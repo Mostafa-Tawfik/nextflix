@@ -1,31 +1,13 @@
 import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import {arrayUnion, doc, updateDoc} from 'firebase/firestore'
 import { FaHeart, FaRegHeart } from 'react-icons/fa'
 import { AuthContext } from '../context/AuthContext'
-import { db } from '../firebase'
+import { saveMovie } from '../helpers/firebaseCrud'
 
 function Movie({movie}) {
 
   const {user} = useContext(AuthContext)
-
   const [like, setLike] = useState(false)
-
-  const movieID = doc(db, 'users', `${user?.email}`)
-
-  const saveMovie = async ()=> {
-    if(user?.email) {
-      setLike(!like)
-      await updateDoc(movieID, {
-        favMovies: arrayUnion({
-          id: movie.id,
-          title: movie.title,
-          img: movie.poster_path
-        })
-      })
-    } else alert('Login to save your favorite movies')
-  }
-
   // console.log(fav, movie.title);
 
   return (
@@ -47,7 +29,7 @@ function Movie({movie}) {
 
           <button 
             className='absolute top-4 left-4 text-gray-300 hover:scale-[1.5] hover:duration-300 ease duration-300'
-            onClick={saveMovie}>
+            onClick={()=>saveMovie(movie, user, ()=>setLike(!like))}>
             {like ? <FaHeart /> : <FaRegHeart />}
           </button>
 
