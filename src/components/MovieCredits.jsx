@@ -26,7 +26,7 @@ function MovieCredits({movieID}) {
     slider.scrollLeft = slider.scrollLeft + 500
   }
 
-  console.log(cast);
+  // console.log(cast);
 
   return (
     <div>

@@ -15,7 +15,7 @@ function Search() {
 
   const {data, sendReq} = useApi({url: requestSearch(value)})
 
-  const matchedResults = data.results
+  const matchedResults = data.results?.filter(movie=>movie.poster_path !== null)
 
 
   useEffect(()=>{
