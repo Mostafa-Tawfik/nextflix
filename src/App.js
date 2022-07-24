@@ -1,4 +1,5 @@
 import {Routes, Route, Navigate} from 'react-router-dom';
+import Footer from './components/Footer';
 import Navbar from "./components/Navbar";
 import ProtectedRoute from './helpers/ProtectedRoute';
 import Account from './Pages/Account';
@@ -26,6 +27,7 @@ function App() {
         />
         <Route path="*" element={<Navigate to ="/" replace/>}/>
       </Routes>
+      <Footer />
     </div>
   );
 }

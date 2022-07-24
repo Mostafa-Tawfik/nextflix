@@ -25,7 +25,7 @@ function Search() {
   console.log(matchedResults);
 
   return (
-    <main className='w-full h-full pt-[120px] flex flex-col items-center justify-center'>
+    <main className='w-full min-h-[calc(100vh-130px)] pt-[120px] flex flex-col items-center justify-center'>
       <input 
         className='rounded h-8 pl-4'
         type='text'
