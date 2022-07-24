@@ -4,6 +4,7 @@ import {useParams} from 'react-router-dom'
 import useApi from '../api/useApi'
 import {FaImdb} from 'react-icons/fa'
 import {SiThemoviedatabase} from 'react-icons/si'
+import MovieCredits from '../components/MovieCredits';
 
 function MovieID() {
 
@@ -32,13 +33,13 @@ function MovieID() {
   console.log(movie);
 
   return (
-    <main className='relative w-full h-[510px] pt-[72px]'>
+    <main className='relative w-full h-[600px] pt-[72px]'>
 
       <div className='relative top-0 left-0'>
-        <img className='absolute w-full h-[510px] object-cover opacity-10' src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} alt="movie"/>
+        <img className='absolute w-full h-[600px] object-cover opacity-10' src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} alt="movie"/>
       </div>
 
-      <section className='w-full h-auto flex flex-col items-center justify-center gap-8 text-white p-4 md:flex-row md:h-[510px]'>
+      <section className='w-full h-auto flex flex-col items-center justify-center gap-8 text-white p-4 md:flex-row md:h-[600px]'>
 
         <img 
           className='w-[300px] h-[450px] md:ml-8'
@@ -95,6 +96,10 @@ function MovieID() {
           src={`https://www.youtube.com/embed/${trailer[0]?.key}`}>
         </iframe>}
 
+      </section>
+
+      <section>
+        <MovieCredits movieID={params.movieID}/>
       </section>
 
 
