@@ -38,10 +38,10 @@ function MovieID() {
         <img className='absolute w-full h-[510px] object-cover opacity-10' src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} alt="movie"/>
       </div>
 
-      <section className='w-full h-auto flex flex-col items-center justify-center gap-4 text-white p-4 md:flex-row md:h-[510px]'>
+      <section className='w-full h-auto flex flex-col items-center justify-center gap-8 text-white p-4 md:flex-row md:h-[510px]'>
 
         <img 
-          className='w-[300px] h-[450px]'
+          className='w-[300px] h-[450px] md:ml-8'
           src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`} alt='/'
         />
 

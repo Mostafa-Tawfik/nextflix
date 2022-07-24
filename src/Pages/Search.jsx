@@ -35,7 +35,7 @@ function Search() {
       >
       </input>
 
-      <div className='flex flex-wrap justify-center items-center'>
+      <div className='flex flex-wrap justify-center items-center pt-4'>
         {matchedResults?.map(movie => (
           <Movie movie={movie} key={movie?.id}/>
         ))}      
