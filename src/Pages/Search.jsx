@@ -19,11 +19,11 @@ function Search() {
 
 
   useEffect(()=>{
-    sendReq()
+    query !== '' && sendReq()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[value])
 
-  // console.log(matchedResults);
+  console.log(matchedResults);
 
   return (
     <main className='w-full min-h-[calc(100vh-130px)] pt-[120px] flex flex-col items-center justify-center'>

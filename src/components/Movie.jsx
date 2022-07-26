@@ -8,20 +8,29 @@ function Movie({movie}) {
 
   const {user} = useContext(AuthContext)
   const [like, setLike] = useState(false)
-  // console.log(fav, movie.title);
+
+  const redirectPath = (movie)=> {
+    if(movie.media_type === 'movie') {
+      return `/movie/${movie?.id}`
+    } else if (movie.media_type === 'tv') {
+      return `/tv/${movie?.id}`
+    }
+  }
+
+  // console.log(redirectPath);
 
   return (
     <>
       <div className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'>
 
-        <Link to={`/movie/${movie?.id}`}>
+        <Link to={`${redirectPath(movie)}`}>
           <img className='w-full h-auto block' src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`} alt="movie"/>
         </Link>
 
 
         <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white'>
 
-        <Link to={`/movie/${movie?.id}`}>
+        <Link to={`${redirectPath(movie)}`}>
           <p className='whitespace-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>
             {movie?.title}
           </p>

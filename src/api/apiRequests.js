@@ -13,6 +13,8 @@ export const requestCredits = (movieID) => `https://api.themoviedb.org/3/movie/$
 
 export const requestMovie = (movieID) => `https://api.themoviedb.org/3/movie/${movieID}?api_key=${key}&language=en-US&page=1`
 
+export const requestTvShow = (tvShowID) => `https://api.themoviedb.org/3/tv/${tvShowID}?api_key=${key}&language=en-US&page=1`
+
 export const requestvideos = (movieID) => `https://api.themoviedb.org/3/movie/${movieID}/videos?api_key=${key}&language=en-US&page=1`
 
-export const requestSearch = (query) => `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=${query}&language=en-US&include_adult=true&page=1`
+export const requestSearch = (query) => `https://api.themoviedb.org/3/search/multi?api_key=${key}&query=${query}&language=en-US&include_adult=true&page=1`
