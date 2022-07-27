@@ -3,9 +3,9 @@ import useApi from '../api/useApi'
 import { requestCredits } from '../api/apiRequests'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 
-function MovieCredits({movieID}) {
+function MovieCredits({movieID, mediaType}) {
 
-  const {data, sendReq} = useApi({url: requestCredits(movieID)})
+  const {data, sendReq} = useApi({url: requestCredits(movieID, mediaType)})
 
   const cast = data.cast?.filter(cast=>cast.profile_path !== null).slice(0, 10)
 

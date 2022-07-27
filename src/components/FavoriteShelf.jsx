@@ -8,7 +8,7 @@ function FavoriteShelf({title, shows, mediaType}) {
 
   const {user} = useContext(AuthContext)
 
-  console.log(shows);
+  console.log(mediaType);
 
   function handleDelete(show) {
     if(mediaType === 'movie') {
@@ -33,7 +33,7 @@ function FavoriteShelf({title, shows, mediaType}) {
             <section key={show.id}
               className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block relative p-2'
             >
-              <Link to={`/movie/${show?.id}`}>
+              <Link to={`/${mediaType}/${show?.id}`}>
                 <img
                   className='w-full h-auto block'
                   src={`https://image.tmdb.org/t/p/w500/${show?.img}`}

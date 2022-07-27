@@ -38,7 +38,7 @@ function Account() {
 
       </div>
 
-      {movies.length > 0 && <FavoriteShelf title='Favorite Movies' mediaType='movies' shows={movies} />}
+      {movies.length > 0 && <FavoriteShelf title='Favorite Movies' mediaType='movie' shows={movies} />}
 
       {tvShows.length > 0 &&<FavoriteShelf title='Favorite TV Shows' mediaType='tv' shows={tvShows} />}
     </div>

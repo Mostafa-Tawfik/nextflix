@@ -104,7 +104,7 @@ function MovieID({mediaType}) {
         </section>
 
         <section>
-          <MovieCredits movieID={params.showID}/>
+          <MovieCredits movieID={params.showID} mediaType={mediaType}/>
         </section>
 
       </section>
