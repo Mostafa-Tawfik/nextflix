@@ -37,9 +37,9 @@ function Shelf({ title, fetchURL, id, mediaType }) {
 
       <div className='relative flex items-center group'>
 
-        <MdChevronLeft size={40} className='left-0 bg-white rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block' onClick={scrollLeft}/>
+        <MdChevronLeft size={40} className='left-4 bg-white rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block' onClick={scrollLeft}/>
 
-        <div id={'slider' + id} className='w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative'>
+        <div id={'slider' + id} className='w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative px-4'>
           {shows?.map(show => (
             <ShowCard key={show?.id} show={show} mediaType={show?.media_type || mediaType}/>
           ))}

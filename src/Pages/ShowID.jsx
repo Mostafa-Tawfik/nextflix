@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import {useParams} from 'react-router-dom'
 import useApi from '../api/useApi'
 import { 
@@ -9,14 +9,28 @@ import {FaImdb} from 'react-icons/fa'
 import {SiThemoviedatabase} from 'react-icons/si'
 import MovieCredits from '../components/ShowCredits';
 import Shelf from '../components/Shelf'
+import { FaHeart, FaRegHeart } from 'react-icons/fa'
+import { AuthContext } from '../context/AuthContext'
+import { saveMovie, saveTvShow } from '../helpers/firebaseCrud'
 
 function MovieID({ mediaType }) {
 
   const params = useParams()
+  const {user} = useContext(AuthContext)
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [params.showID])
+
+  const [like, setLike] = useState(false)
+
+  function handleSaving() {
+    if(mediaType === 'movie') {
+      return saveMovie(show, user, ()=>setLike(!like))
+    } else if (mediaType === 'tv') {
+      return saveTvShow(show, user, ()=>setLike(!like))
+    }
+  }
 
   const {data: show, sendReq: reqData} = useApi({
     url: requestShowDetails(params.showID, mediaType)
@@ -91,6 +105,12 @@ function MovieID({ mediaType }) {
               <a href={`https://www.themoviedb.org/${mediaType}/${show?.id}`} target={'_blank'} rel={'noreferrer'}>
                 <SiThemoviedatabase size={60} color={'green'}/>
               </a>
+
+              <button 
+                className='text-gray-300 hover:scale-[1.2] hover:duration-300 ease duration-300'
+                onClick={handleSaving}>
+                {like ? <FaHeart size={40}/> : <FaRegHeart size={40} />}
+              </button>
             </div>
           </div>
         </section>

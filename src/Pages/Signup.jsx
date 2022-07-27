@@ -1,12 +1,14 @@
 import React from 'react'
 import { useState } from 'react'
 import { useContext } from 'react'
+import GoogleButton from 'react-google-button'
 import {Link, useNavigate} from 'react-router-dom'
 import {AuthContext} from '../context/AuthContext'
 
 function Signup() {
 
   const {signUp} = useContext(AuthContext)
+  const { googleSignIn } = useContext(AuthContext)
   const navigate = useNavigate()
 
   const [email, setEmail] = useState('')
@@ -24,6 +26,15 @@ function Signup() {
     } catch(error) {
       console.log(error.message);
       // setErrorMsg(error.message)
+    }
+  }
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn()
+      navigate('/')
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -77,6 +88,8 @@ function Signup() {
                 </span>
                 <Link to='/login' className='text-sm'> Sign In</Link>
               </p>
+
+              <GoogleButton onClick={handleGoogleSignIn}/>
             </form>
 
           </div>
