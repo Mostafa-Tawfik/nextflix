@@ -1,30 +1,27 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
-import { db } from '../firebase'
-import { doc, onSnapshot } from 'firebase/firestore'
 import { AiOutlineClose } from 'react-icons/ai'
-import { deleteMovie } from '../helpers/firebaseCrud'
+import { deleteMovie, deleteTvShow } from '../helpers/firebaseCrud'
 
-function FavoriteMovies() {
+function FavoriteShelf({title, shows, mediaType}) {
 
   const {user} = useContext(AuthContext)
 
-  const [movies, setMovies] = useState([])
+  console.log(shows);
 
-  // console.log(movies);
-
-  // render the fav movies from DB
-  useEffect(()=>{
-    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
-      setMovies(doc.data()?.favMovies)
-    })
-  },[user?.email])
+  function handleDelete(show) {
+    if(mediaType === 'movie') {
+      return deleteMovie(show.id, shows, user)
+    } else if (mediaType === 'tv') {
+      return deleteTvShow(show.id, shows, user)
+    }
+  }
 
   return (
     <div>
       <h2 className='text-white font-bold md:text-xl p-4'>
-        Watch List
+        {title}
       </h2>
 
       <div className='relative flex items-center group'>
@@ -32,25 +29,25 @@ function FavoriteMovies() {
           id={'slider'}
           className='w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative'
         >
-          {movies.map((movie) => (
-            <section key={movie.id}
+          {shows?.map((show) => (
+            <section key={show.id}
               className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block relative p-2'
             >
-              <Link to={`/movie/${movie?.id}`}>
+              <Link to={`/movie/${show?.id}`}>
                 <img
                   className='w-full h-auto block'
-                  src={`https://image.tmdb.org/t/p/w500/${movie?.img}`}
-                  alt={movie?.title}
+                  src={`https://image.tmdb.org/t/p/w500/${show?.img}`}
+                  alt={show?.title}
                 />
                 <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white'>
                   <p className='whitespace-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>
-                    {movie?.title}
+                    {show?.title}
                   </p>
                 </div>
               </Link>
 
               <button 
-                onClick={()=> deleteMovie(movie.id, movies, user)} 
+                onClick={()=> handleDelete(show)} 
                 className='absolute text-gray-300 top-4 right-4 hover:scale-[1.5] hover:duration-300 ease duration-300'>
                   <AiOutlineClose />
               </button>
@@ -62,4 +59,4 @@ function FavoriteMovies() {
   )
 }
 
-export default FavoriteMovies
+export default FavoriteShelf

@@ -1,34 +1,21 @@
 import React, { useEffect } from 'react'
-import {useParams, useLocation} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 import useApi from '../api/useApi'
-import { requestMovie, requestvideos, requestTvShow } from '../api/apiRequests'
+import { requestShowDetails, requestvideos } from '../api/apiRequests'
 import {FaImdb} from 'react-icons/fa'
 import {SiThemoviedatabase} from 'react-icons/si'
 import MovieCredits from '../components/MovieCredits';
-import { useState } from 'react'
 
-function MovieID() {
+function MovieID({mediaType}) {
 
   const params = useParams()
-  const location = useLocation()
-
-  const [mediaType, setMediaType] = useState('')
-
-  useEffect(()=> {
-    if(location.pathname.includes('tv')) {
-      setMediaType('tv')
-    } else if (location.pathname.includes('movie')) {
-      setMediaType('movie')
-    }
-  },[location.pathname])
-
   console.log(mediaType);
 
   const {data: movie, sendReq: reqData} = useApi(
-    {url: mediaType === 'movie' ? requestMovie(params.showID) : requestTvShow(params.showID)}
+    {url: requestShowDetails(params.showID, mediaType)}
   )
 
-  const {data: videos, sendReq: reqVidos} = useApi({url: requestvideos(params.showID)})
+  const {data: videos, sendReq: reqVidos} = useApi({url: requestvideos(params.showID, mediaType)})
 
   useEffect(()=>{
     reqData()
@@ -117,7 +104,7 @@ function MovieID() {
         </section>
 
         <section>
-          <MovieCredits movieID={params.movieID}/>
+          <MovieCredits movieID={params.showID}/>
         </section>
 
       </section>

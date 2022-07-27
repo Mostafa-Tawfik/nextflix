@@ -1,7 +1,24 @@
-import React from 'react'
-import FavoriteMovies from '../components/FavoriteMovies'
+import React, { useState, useEffect, useContext } from 'react'
+import FavoriteShelf from '../components/FavoriteShelf'
+import { doc, onSnapshot } from 'firebase/firestore'
+import { AuthContext } from '../context/AuthContext'
+import { db } from '../firebase'
 
 function Account() {
+
+  const {user} = useContext(AuthContext)
+
+  const [movies, setMovies] = useState([])
+  const [tvShows, setTvShows] = useState([])
+
+  // render the fav movies from DB
+  useEffect(()=>{
+    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
+      setMovies(doc.data()?.favMovies)
+      setTvShows(doc.data()?.favTvShows)
+    })
+  },[user?.email])
+
   return (
     <div>
       <div className='w-full text-white'>
@@ -15,12 +32,15 @@ function Account() {
 
         <div className='absolute top-[20%] p-4 md:p-8'>
           <h1 className='text-3xl md:text-5xl font-bold'>
-            Favorite Movies
+            My Favorite Lists
           </h1>
         </div>
 
       </div>
-      <FavoriteMovies />
+
+      {movies.length > 0 && <FavoriteShelf title='Favorite Movies' mediaType='movies' shows={movies} />}
+
+      {tvShows.length > 0 &&<FavoriteShelf title='Favorite TV Shows' mediaType='tv' shows={tvShows} />}
     </div>
   )
 }

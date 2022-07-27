@@ -5,7 +5,7 @@ import ProtectedRoute from './helpers/ProtectedRoute';
 import Account from './Pages/Account';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
-import MovieID from './Pages/MovieID';
+import ShowID from './Pages/ShowID';
 import Search from './Pages/Search';
 import Signup from './Pages/Signup';
 
@@ -17,8 +17,8 @@ function App() {
         <Route path='/' element={<Home />}/>
         <Route path='/signup' element={<Signup />}/>
         <Route path='/login' element={<Login />}/>
-        <Route path='/movie/:showID' element={<MovieID />}/>
-        <Route path='/tv/:showID' element={<MovieID />}/>
+        <Route path='/movie/:showID' element={<ShowID mediaType='movie'/>}/>
+        <Route path='/tv/:showID' element={<ShowID mediaType='tv'/>}/>
         <Route path='/search' element={<Search />}/>
         <Route path='/account' element={
           <ProtectedRoute>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDebounce } from 'use-debounce'
 import useApi from '../api/useApi'
-import Movie from '../components/Movie'
+import Movie from '../components/ShowCard'
 import { requestSearch } from '../api/apiRequests'
 
 function Search() {
@@ -15,7 +15,7 @@ function Search() {
 
   const {data, sendReq} = useApi({url: requestSearch(value)})
 
-  const matchedResults = data.results?.filter(movie=>movie.poster_path !== null)
+  const matchedResults = data.results?.filter(show=>show.poster_path !== null)
 
 
   useEffect(()=>{
@@ -37,8 +37,8 @@ function Search() {
       </input>
 
       <div className='flex flex-wrap justify-center items-center pt-4'>
-        {matchedResults?.map(movie => (
-          <Movie movie={movie} key={movie?.id}/>
+        {matchedResults?.map(show => (
+          <Movie show={show} key={show?.id} mediaType={show?.media_type}/>
         ))}      
       </div>
     </main>

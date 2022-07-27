@@ -1,13 +1,13 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
-import Movie from './Movie'
+import ShowCard from './ShowCard'
 import useApi from '../api/useApi'
 
-function Category({title, fetchURL, id}) {
+function Category({title, fetchURL, id, mediaType}) {
 
   const {data, sendReq} = useApi({url:fetchURL})
-  const movies = data.results?.slice(0, 10)
+  const shows = data.results?.slice(0, 10)
 
   useEffect(()=>{
     sendReq()
@@ -35,8 +35,8 @@ function Category({title, fetchURL, id}) {
         <MdChevronLeft size={40} className='left-0 bg-white rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block' onClick={scrollLeft}/>
 
         <div id={'slider' + id} className='w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative'>
-          {movies?.map(movie => (
-            <Movie key={movie?.id} movie={movie}/>
+          {shows?.map(show => (
+            <ShowCard key={show?.id} show={show} mediaType={mediaType}/>
           ))}
 
         </div>
