@@ -8,7 +8,7 @@ function FavoriteShelf({title, shows, mediaType}) {
 
   const {user} = useContext(AuthContext)
 
-  // console.log(mediaType);
+  // console.log(shows);
 
   function handleDelete(show) {
     if(mediaType === 'movie') {
@@ -36,12 +36,12 @@ function FavoriteShelf({title, shows, mediaType}) {
               <Link to={`/${mediaType}/${show?.id}`}>
                 <img
                   className='w-full h-auto block'
-                  src={`https://image.tmdb.org/t/p/w500/${show?.img}`}
-                  alt={show?.title}
+                  src={`https://image.tmdb.org/t/p/w500/${show?.img || show?.poster_path}`}
+                  alt={show?.title || show?.name}
                 />
                 <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white'>
                   <p className='whitespace-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>
-                    {show?.title}
+                    {show?.title || show?.name}
                   </p>
                 </div>
               </Link>

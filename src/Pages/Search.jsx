@@ -23,14 +23,14 @@ function Search() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[value])
 
-  console.log(matchedResults);
+  // console.log(matchedResults);
 
   return (
     <main className='w-full min-h-[calc(100vh-130px)] pt-[120px] flex flex-col items-center justify-center'>
       <input 
-        className='rounded h-8 pl-4'
+        className='rounded h-[50px] pl-4 w-[300px]'
         type='text'
-        placeholder='Search by movie name'
+        placeholder='Search by movie/show name'
         value={query}
         onChange={handleChange}
       >

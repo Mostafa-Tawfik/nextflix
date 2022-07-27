@@ -17,6 +17,8 @@ export const requestCredits = (showID, mediaType) => `https://api.themoviedb.org
 
 export const requestShowDetails = (showID, mediaType) => `https://api.themoviedb.org/3/${mediaType}/${showID}?api_key=${key}&language=en-US&page=1`
 
+export const requestRecommendations = (showID, mediaType) => `https://api.themoviedb.org/3/${mediaType}/${showID}/recommendations?api_key=${key}&language=en-US&page=1`
+
 export const requestvideos = (showID, mediaType) => `https://api.themoviedb.org/3/${mediaType}/${showID}/videos?api_key=${key}&language=en-US&page=1`
 
 export const requestSearch = (query) => `https://api.themoviedb.org/3/search/multi?api_key=${key}&query=${query}&language=en-US&include_adult=true&page=1`

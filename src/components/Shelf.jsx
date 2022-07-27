@@ -3,8 +3,11 @@ import { useEffect } from 'react'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import ShowCard from './ShowCard'
 import useApi from '../api/useApi'
+import {useParams} from 'react-router-dom'
 
-function Shelfs({title, fetchURL, id, mediaType}) {
+function Shelf({ title, fetchURL, id }) {
+
+  const params = useParams()
 
   const {data, sendReq} = useApi({url:fetchURL})
   const shows = data.results?.slice(0, 10).filter(show=>show.poster_path !== null)
@@ -14,7 +17,7 @@ function Shelfs({title, fetchURL, id, mediaType}) {
   useEffect(()=>{
     sendReq()
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+  },[params.showID])
 
   // manual scroll left function
   function scrollLeft() {
@@ -50,4 +53,4 @@ function Shelfs({title, fetchURL, id, mediaType}) {
   )
 }
 
-export default Shelfs
+export default Shelf

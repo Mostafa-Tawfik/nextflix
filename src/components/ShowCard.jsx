@@ -8,7 +8,6 @@ function ShowCard({show, mediaType}) {
 
   const {user} = useContext(AuthContext)
   const [like, setLike] = useState(false)
-  // console.log(mediaType);
 
   function handleSaving() {
     if(mediaType === 'movie') {
@@ -35,11 +34,11 @@ function ShowCard({show, mediaType}) {
           </p>
         </Link>
 
-          <button 
-            className='absolute top-4 left-4 text-gray-300 hover:scale-[1.5] hover:duration-300 ease duration-300'
-            onClick={handleSaving}>
-            {like ? <FaHeart /> : <FaRegHeart />}
-          </button>
+        <button 
+          className='absolute top-4 left-4 text-gray-300 hover:scale-[1.5] hover:duration-300 ease duration-300'
+          onClick={handleSaving}>
+          {like ? <FaHeart /> : <FaRegHeart />}
+        </button>
 
         </div>
       </div>

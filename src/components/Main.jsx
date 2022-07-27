@@ -7,7 +7,7 @@ function Main() {
   // set a state to hold the movies
   const [shows, setShows] = useState([])
 
-  console.log(shows);
+  // console.log(shows);
 
   // choose random movie to display
   const show = shows[Math.floor(Math.random() * shows.length)]
