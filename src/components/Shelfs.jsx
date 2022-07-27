@@ -4,10 +4,12 @@ import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import ShowCard from './ShowCard'
 import useApi from '../api/useApi'
 
-function Category({title, fetchURL, id, mediaType}) {
+function Shelfs({title, fetchURL, id, mediaType}) {
 
   const {data, sendReq} = useApi({url:fetchURL})
-  const shows = data.results?.slice(0, 10)
+  const shows = data.results?.slice(0, 10).filter(show=>show.poster_path !== null)
+
+  // console.log({title},shows);
 
   useEffect(()=>{
     sendReq()
@@ -36,7 +38,7 @@ function Category({title, fetchURL, id, mediaType}) {
 
         <div id={'slider' + id} className='w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative'>
           {shows?.map(show => (
-            <ShowCard key={show?.id} show={show} mediaType={mediaType}/>
+            <ShowCard key={show?.id} show={show} mediaType={show?.media_type}/>
           ))}
 
         </div>
@@ -48,4 +50,4 @@ function Category({title, fetchURL, id, mediaType}) {
   )
 }
 
-export default Category
+export default Shelfs

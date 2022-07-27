@@ -8,7 +8,7 @@ function FavoriteShelf({title, shows, mediaType}) {
 
   const {user} = useContext(AuthContext)
 
-  console.log(mediaType);
+  // console.log(mediaType);
 
   function handleDelete(show) {
     if(mediaType === 'movie') {

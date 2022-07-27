@@ -3,9 +3,9 @@ import useApi from '../api/useApi'
 import { requestCredits } from '../api/apiRequests'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 
-function MovieCredits({movieID, mediaType}) {
+function ShowCredits({showID, mediaType}) {
 
-  const {data, sendReq} = useApi({url: requestCredits(movieID, mediaType)})
+  const {data, sendReq} = useApi({url: requestCredits(showID, mediaType)})
 
   const cast = data.cast?.filter(cast=>cast.profile_path !== null).slice(0, 10)
 
@@ -38,7 +38,7 @@ function MovieCredits({movieID, mediaType}) {
 
         <div id={'slider'} className='w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative'>
           {cast?.map(person => (
-            <div key={person?.cast_id} className='w-[120px] md:w-[160px] lg:w-[200px] inline-block relative p-2'>
+            <div key={person?.cast_id || person?.id} className='w-[120px] md:w-[160px] lg:w-[200px] inline-block relative p-2'>
 
               <img className='w-full h-auto block' src={`https://image.tmdb.org/t/p/original/${person?.profile_path}`} alt="movie"/>
       
@@ -64,4 +64,4 @@ function MovieCredits({movieID, mediaType}) {
   )
 }
 
-export default MovieCredits
+export default ShowCredits

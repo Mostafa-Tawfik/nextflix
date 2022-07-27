@@ -4,14 +4,17 @@ import useApi from '../api/useApi'
 import { requestShowDetails, requestvideos } from '../api/apiRequests'
 import {FaImdb} from 'react-icons/fa'
 import {SiThemoviedatabase} from 'react-icons/si'
-import MovieCredits from '../components/MovieCredits';
+import MovieCredits from '../components/ShowCredits';
 
-function MovieID({mediaType}) {
+function MovieID({ mediaType }) {
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   const params = useParams()
-  console.log(mediaType);
 
-  const {data: movie, sendReq: reqData} = useApi(
+  const {data: show, sendReq: reqData} = useApi(
     {url: requestShowDetails(params.showID, mediaType)}
   )
 
@@ -26,7 +29,7 @@ function MovieID({mediaType}) {
   // filter vidoes and return only trailers
   const trailer = videos.results && videos.results.filter(vid=> vid.name.includes('Official Trailer' || 'trailer'))
 
-  const genres = movie.genres?.map(gen => gen.name).join(' , ')
+  const genres = show.genres?.map(gen => gen.name).join(' , ')
 
   function timeConverter(num) {
     let hours = Math.floor(num / 60)
@@ -34,7 +37,7 @@ function MovieID({mediaType}) {
     return hours + ':' + minutes + 'm'
   }
   
-  console.log(movie);
+  // console.log(show);
 
   return (
     <main>
@@ -42,48 +45,48 @@ function MovieID({mediaType}) {
       <section className='relative w-full h-full pt-[72px]'>
 
         <div className='relative top-0 left-0'>
-          <img className='absolute w-full h-[600px] object-cover opacity-10' src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} alt="movie"/>
+          <img className='absolute w-full h-[600px] object-cover opacity-10' src={`https://image.tmdb.org/t/p/original/${show?.backdrop_path}`} alt="movie"/>
         </div>
 
         <section className='w-full h-auto flex flex-col items-center justify-center gap-8 text-white p-4 md:flex-row md:h-[600px]'>
 
           <img 
             className='w-[300px] h-[450px] md:ml-8'
-            src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`} alt='/'
+            src={`https://image.tmdb.org/t/p/original/${show?.poster_path}`} alt='/'
           />
 
           <div className='z-20 flex flex-col gap-4'>
 
             <article>
               <h2 className='text-3xl md:text-5xl font-bold'>
-                {movie?.title}
+                {show?.title}
               </h2>
 
               <p className='text-xs md:text-sm text-gray-400 pt-2'>
-                {movie?.release_date} &bull; {genres} &bull; {timeConverter(movie?.runtime)}
+                {show?.release_date || show?.first_air_date} &bull; {genres} &bull; {show?.runtime && timeConverter(show?.runtime)}
               </p>
             </article>
 
-            <p className='italic text-gray-500'>{movie?.tagline}</p>
+            <p className='italic text-gray-500'>{show?.tagline}</p>
 
             <article className='py-4'>
               <h3 className='text-lg pb-2'>Overview</h3>
-              <p className='lg:max-w-[70%] xl:max-w-[50%] text-gray-300'>{movie?.overview}</p>
+              <p className='lg:max-w-[70%] xl:max-w-[50%] text-gray-300'>{show?.overview}</p>
             </article>
 
             <div className='flex gap-4'>
-              <a href={movie?.homepage} target={'_blank'} rel={'noreferrer'}>
+              <a href={show?.homepage} target={'_blank'} rel={'noreferrer'}>
                 <img 
                   className='w-[60px] h-[60px] object-cover cursor-pointer rounded'
-                  src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} alt="/" 
+                  src={`https://image.tmdb.org/t/p/original/${show?.backdrop_path}`} alt="/" 
                   />
               </a>
 
-              <a href={`https://www.imdb.com/title/${movie?.imdb_id}/`} target={'_blank'} rel={'noreferrer'}>
+              {show?.imdb_id && <a href={`https://www.imdb.com/title/${show?.imdb_id}/`} target={'_blank'} rel={'noreferrer'}>
                 <FaImdb size={60} color={'yellow'}/>
-              </a>
+              </a>}
               
-              <a href={`https://www.themoviedb.org/movie/${movie?.id}`} target={'_blank'} rel={'noreferrer'}>
+              <a href={`https://www.themoviedb.org/${mediaType}/${show?.id}`} target={'_blank'} rel={'noreferrer'}>
                 <SiThemoviedatabase size={60} color={'green'}/>
               </a>
             </div>
@@ -104,7 +107,7 @@ function MovieID({mediaType}) {
         </section>
 
         <section>
-          <MovieCredits movieID={params.showID} mediaType={mediaType}/>
+          <MovieCredits showID={params.showID} mediaType={mediaType}/>
         </section>
 
       </section>
