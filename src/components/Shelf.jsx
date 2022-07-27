@@ -5,7 +5,7 @@ import ShowCard from './ShowCard'
 import useApi from '../api/useApi'
 import {useParams} from 'react-router-dom'
 
-function Shelf({ title, fetchURL, id }) {
+function Shelf({ title, fetchURL, id, mediaType }) {
 
   const params = useParams()
 
@@ -41,7 +41,7 @@ function Shelf({ title, fetchURL, id }) {
 
         <div id={'slider' + id} className='w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative'>
           {shows?.map(show => (
-            <ShowCard key={show?.id} show={show} mediaType={show?.media_type}/>
+            <ShowCard key={show?.id} show={show} mediaType={show?.media_type || mediaType}/>
           ))}
 
         </div>

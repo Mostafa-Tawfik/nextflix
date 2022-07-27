@@ -9,6 +9,8 @@ function ShowCard({show, mediaType}) {
   const {user} = useContext(AuthContext)
   const [like, setLike] = useState(false)
 
+  // console.log(show, mediaType);
+
   function handleSaving() {
     if(mediaType === 'movie') {
       return saveMovie(show, user, ()=>setLike(!like))

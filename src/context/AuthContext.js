@@ -4,7 +4,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from 'firebase/auth'
 import { setDoc, doc } from 'firebase/firestore'
 
@@ -18,7 +20,8 @@ export function AuthProvider({children}) {
   function signUp(email, password) {
     createUserWithEmailAndPassword(auth, email, password)
     setDoc(doc(db, 'users', email), {
-      favMovies: []
+      favMovies: [],
+      favTvShows: []
     })
   }
 
@@ -28,6 +31,11 @@ export function AuthProvider({children}) {
 
   function logout() {
     return signOut(auth)
+  }
+
+  function googleSignIn() {
+    const provider = new GoogleAuthProvider()
+    return signInWithPopup(auth, provider)
   }
 
   useEffect(()=> {
@@ -41,6 +49,7 @@ export function AuthProvider({children}) {
       signUp,
       login,
       logout,
+      googleSignIn,
       user
     }}>
       <>{children}</>

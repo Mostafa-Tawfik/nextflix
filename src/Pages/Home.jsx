@@ -2,8 +2,32 @@ import React from 'react'
 import apiRequests from '../api/apiRequests'
 import Shelf from '../components/Shelf'
 import Main from '../components/Main'
+import { useEffect } from 'react'
+import { doc, onSnapshot, setDoc } from 'firebase/firestore'
+import { db } from '../firebase'
+import { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
 
 function Home() {
+  const { user }= useContext(AuthContext)
+
+  // check if user have doc in db, if not create doc
+  useEffect(()=>{
+    if(user?.email) {
+      const docRef = doc(db, 'users', `${user?.email}`)
+  
+      onSnapshot(docRef, (doc) => {
+        if(!doc.exists()) {
+          // console.log('no data')
+          setDoc(docRef, {
+            favMovies: [],
+            favTvShows: []
+          })
+        }
+      })
+    }
+  },[user?.email])
+
   return (
     <div>
       <Main />

@@ -7,15 +7,21 @@ import { db } from '../firebase'
 function Account() {
 
   const {user} = useContext(AuthContext)
+  // console.log(user.email);
 
   const [movies, setMovies] = useState([])
   const [tvShows, setTvShows] = useState([])
 
   // render the fav movies from DB
   useEffect(()=>{
-    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
-      setMovies(doc.data()?.favMovies)
-      setTvShows(doc.data()?.favTvShows)
+    const docRef = doc(db, 'users', `${user?.email}`)
+
+    onSnapshot(docRef, (doc) => {
+      if(doc.exists()) {
+        // console.log(doc.data())
+        setMovies(doc.data()?.favMovies)
+        setTvShows(doc.data()?.favTvShows)
+      }
     })
   },[user?.email])
 
@@ -38,9 +44,9 @@ function Account() {
 
       </div>
 
-      {movies.length > 0 && <FavoriteShelf title='Favorite Movies' mediaType='movie' shows={movies} />}
+      {movies?.length > 0 && <FavoriteShelf title='Favorite Movies' mediaType='movie' shows={movies} />}
 
-      {tvShows.length > 0 &&<FavoriteShelf title='Favorite TV Shows' mediaType='tv' shows={tvShows} />}
+      {tvShows?.length > 0 &&<FavoriteShelf title='Favorite TV Shows' mediaType='tv' shows={tvShows} />}
     </div>
   )
 }
