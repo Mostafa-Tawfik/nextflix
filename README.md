@@ -1,5 +1,5 @@
 # Nextflix
-A Movies Library App with Netflix ux/ui where you can search, surf, and save your favoraite shows.
+A Movies Library App with Netflix UX/UI where you can search, surf, and save your favorite shows.
 
 You can visit the live Demo on https://nextflix-6b685.web.app/.
 
