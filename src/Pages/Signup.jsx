@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { useContext } from 'react'
-import GoogleButton from 'react-google-button'
+import { FcGoogle } from 'react-icons/fc'
 import {Link, useNavigate} from 'react-router-dom'
 import {AuthContext} from '../context/AuthContext'
 
@@ -29,7 +29,9 @@ function Signup() {
     }
   }
 
-  const handleGoogleSignIn = async () => {
+  const handleGoogleSignIn = async (e) => {
+    e.preventDefault()
+    
     try {
       await googleSignIn()
       navigate('/')
@@ -39,7 +41,7 @@ function Signup() {
   }
 
   return (
-    <div className='w-full h-screen'>
+    <div className='w-full h-[calc(100vh-130px)]'>
 
       {/* background */}
       <img className='hidden sm:block absolute w-full h-full object-cover'
@@ -49,30 +51,36 @@ function Signup() {
       <div className='bg-black/60 fixed top-0 left-0 w-full h-screen'></div>
 
       <div className='fixed w-full px-4 py-24 z-50'>
-        <div className='max-w-[450px] h-[600px] mx-auto bg-black/75 text-white'>
+        <div className='max-w-[450px] h-[650px] mx-auto bg-black/75 text-white rounded-xl'>
           <div className='max-w-[320px] mx-auto py-16'>
 
             <h1 className='text-3xl font-bold'>Sign Up</h1>
+
+            <p className='mt-4 text-slate-400'>
+              Sign up to save your favorite shows.
+            </p>
 
             <form 
               className='w-full flex flex-col py-4'
               onSubmit={handleSubmit}>
 
               <input 
-                className='p-3 my-2 bg-gray-700 rounded' 
+                className='p-4 my-2 bg-white rounded text-black' 
                 type="email" 
-                placeholder='Email' 
+                placeholder='Enter your email' 
                 autoComplete='email'
                 onChange={e => setEmail(e.target.value)}/>
 
               <input 
-                className='p-3 my-2 bg-gray-700 rounded'
+                className='p-4 my-2 bg-white rounded text-black'
                 type="password" 
-                placeholder='Password' 
+                placeholder='Enter your password' 
                 autoComplete='current-password'
                 onChange={e => setPassword(e.target.value)}/>
 
-              <button className='bg-red-600 py-3 my-6 rounded font-bold'>Sign Up</button>
+              <button className='bg-red-600 py-3 my-6 rounded font-bold hover:bg-opacity-90 hover:-translate-y-0.5 transition'>
+                Sign Up
+              </button>
 
               <div className='flex justify-between items-center text-sm text-gray-600'>
                 <p>
@@ -82,6 +90,16 @@ function Signup() {
                 <p>Need Help?</p>
               </div>
 
+              <p className='mt-4 py-4 border-t-2 border-gray-600 text-slate-300 text-center'>
+                or sign up with
+              </p>
+
+              <button onClick={handleGoogleSignIn}
+                className='bg-white flex gap-2 justify-center items-center p-2 w-fit rounded mx-auto'>
+                <FcGoogle size={40} className='inline-block'/>
+                <p className='text-black'>Google</p>
+              </button>
+
               <p className='py-8'>
                 <span className='text-gray-600'>
                   Already subscribed to Nextflix?
@@ -89,7 +107,6 @@ function Signup() {
                 <Link to='/login' className='text-sm'> Sign In</Link>
               </p>
 
-              <GoogleButton onClick={handleGoogleSignIn}/>
             </form>
 
           </div>
